@@ -1,0 +1,330 @@
+Return-Path: <camille.guibal@umontpellier.fr>
+Authentication-Results:  kundenserver.de; dkim=pass header.i=@umontpellier.fr
+Received: from mx5.umontpellier.fr ([193.51.152.36]) by mx.kundenserver.de
+ (mxeue010 [212.227.15.41]) with ESMTPS (Nemesis) id 1MSb9d-1qcjvy2FTt-00SvBc
+ for <Rainer@krugs.de>; Thu, 29 Jun 2023 09:20:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=umontpellier.fr; i=@umontpellier.fr; q=dns/txt;
+  s=dkim-s2; t=1688023238; x=1719559238;
+  h=from:to:cc:references:in-reply-to:subject:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=UL1UrHNgjI5/OvNdz46LDjDI9KIS/pTd84q2JMMzwZM=;
+  b=HZyDesBRiw/hQl8sQVwHZ2+13+NaYMes3iZqPK6zIJQVpH0DdaWPl1L0
+   JE99FQaIRWFvu4frFNyIcbJPC2ejsHcEvDEs8+owD7qqXCSP7wcLGMqhO
+   6aFFZPmLqLYYC2IOJJQS7qrIpebv6j4tN5yMEnHmLtN1oEOXfjYfOd6Yl
+   c=;
+X-IPAS-Result: =?us-ascii?q?A2ENAgACMJ1kkIaYM8FagQmBT4MogVwbAYQ2g0+OCQOLV?=
+ =?us-ascii?q?YZdi1OBLBYoDwEBAUgLBAEBAQIBAgGEfwKGCCc3Bg4BAgQBAQEBAwIDAQEBA?=
+ =?us-ascii?q?QEBAwEBAQUBAQEBAQEGAwEBAQIQAQEBAQEBIB4OECeFLwwIJQ2CNykBEWQ9D?=
+ =?us-ascii?q?QM6AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBA?=
+ =?us-ascii?q?g0ZGyUBHgEBAQEDCAIZBQoBFjAMAQMCAQYCEQMBAQEDAiMDAgIZCCUJCAIEA?=
+ =?us-ascii?q?RILBQqCYAQBgigDMRQEQZIumzV6gQExgQGDGK8YDWqBaIEVLoIghTyKEDaBV?=
+ =?us-ascii?q?USBFYIpgQI+giCBagUBEgEoBSAMgyOCZwSLJg0MM4Iugk86ghMYLgcyRYJii?=
+ =?us-ascii?q?H2BJ2+BHjlnegIJAhFBJoEICF+Bbz4CDVQLC2OBHIEqgSgCAhEENhRTXxkbA?=
+ =?us-ascii?q?wcDgQUQLwcELwkWCQYJGC8lBlEHFxYkCRMVQQSDWAqBDT8VDhGCWQsXAgc2P?=
+ =?us-ascii?q?xtRgm0JFw47gQUDCQMHBSwdBQswAwsYDRQ3ESwUIRQbSSozKhdjMIFBCiQko?=
+ =?us-ascii?q?UwDgio3GCYGKyMWATsaAQUOHEQXDnsoAjqLAIcVhAqtDTs1B4IWgXWBVwYMi?=
+ =?us-ascii?q?hSIS4ZIhj6XFZJDmB8ghG6IUINziySGBhxNhlE0XHAzGieDMwk3EhcCD4Vki?=
+ =?us-ascii?q?FWEDoELgwCCIYkccwI5AgcBCgEBAwmKMwGBFAEB?=
+IronPort-PHdr: A9a23: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
+IronPort-Data: A9a23:fnfHU6O7lpvQz2DvrR0/l8FynXyQoLVcMsEvi/4bfWQNrUp20j0Dy
+ 2odUDuHPPeJYWH1Ko0lPNy/pBwEucPWx9NqHgZtpSBmQlt09ceUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vraP67xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOdRbrRA2LBVOCvT/
+ 4uryyHjEAX9gWUsbDhFs/vrRC5H5ZwehhtB5gRWic9j5Dcyp1FNZLoDKKe4KWfPQ4U8NoZWk
+ M6akdlVVkuAl/scIovNfoTTKyXmcZaLVeS6sUe6boD+6vR0jndrjvtkbqp0hXB/0F1ll/gpo
+ DlEncDrE19xVkHGsLx1vxJwS0mSMUDakVNuzLfWXcG7liX7n3XQL/pGAGcOGL0m3OROLXxrp
+ dUVdXMDUCjZiLfjqF67YrEEasULKdXieYQCpismzDfXF/9gXJXERbnS6Ntc3ToqwM5UdRrcT
+ 5NIMnwyNVKZPkcJYwxLYH49tL7Aan3XeDRdqVaRqOw4/mnZxQhZzb3qNsbNd9iORMhP2EiCz
+ o7D1zmjWkxFZYDAodaD2neI3sLixgTBZKgPLeeI9aJnnUKc5HNGXXX6UnPi/ajo1R7hMz5FE
+ GQu8ysooLIa91a2QcK7UxDQiHeFsh8aHdxRGug78imWx6zf4AufDGUeQXhNZbQOrsIwXj8nk
+ FCUk9/kLSditraWRHSX+62b6z+/URX5NkcHeSZBShYZuZ/ipo8ph1TSS9FlDLa4itn0FCu2z
+ SriQDUCa6s7gegz8pWF21L+ry+J9rHEE0072D2NUTfwhu9mX7KNa4ut4FndyP9PKoeFU1WM1
+ ETofeDCtYji6rnRz0SwrPUx8KKBu63ZYGaF6bJ7N9x4qm70pRZPaKgKuFlDyFFV3tEsVwWBj
+ KX7kAVe4JJPVJdBRfErPdrpYyjG5Y7nCMroUvTZK/NXf5ltfQ6B8UlTiaO42nzk1U8xjft5O
+ JGVa8/qEHMdD7h/wT6yRuoHl7Exrszf+Y8xbc2rp/hE+eDGDJJwdVvjGADUBgzexPjeyDg5C
+ /4Fa6O3J+x3CYUSmBX//48JNkwtJnMmH53woME/XrfdclU3Rz55Ua+Ln+tJl2lZc0J9yL2gE
+ paVBBIw9bYDrSeWdG1ml1g/OOOxAsYkxZ7FFXV0ZQ7ws5TcXWpfxP5DJspoLeZPGB1L1/NyR
+ uUIYa297gdnFFz6F8AmRcCl9uRKLU337SrQZHDNSGZkIPZdq/nhpoOMkv3Hr3NVX0JadKIW/
+ 9Wd6+8sacBSG149VpmPNKvHIpHYlSF1pd+elnDgerF7EHgAOqAxQ8Atppfb+/0xFCg=
+IronPort-HdrOrdr: A9a23:xl9vg6BrPjebbyjlHemP55DYdb4zR+YMi2TDpHoBNSC9E/bo7P
+ xG+c5w6faaskd2ZJhNo6HiBEDEewK5yXcX2/hoAV7BZniehILAFugLhuvfKn/bakjDH4ZmtJ
+ uIGJIOb+EYeGIK8PoSjjPIcerIA+PqzElrv4rjJrtWIj2CE5sQlTuRwzz0LnFL
+X-Talos-CUID: 9a23:4ZnTN2EjHDhmDP1kqmJr0nYxKv4DcETx0VKACkLlSmhXcOeaHAo=
+X-Talos-MUID: =?us-ascii?q?9a23=3AY+AnWQ+EbisncJb4WW/xwzuQf8JMu4mDU2c3rb8?=
+ =?us-ascii?q?bgpO0NnB9JiiSriviFw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.01,167,1684792800"; 
+   d="scan'208";a="52057947"
+Received: from mta-out2.infra.umontpellier.fr ([193.51.152.134])
+  by smtp-gw5.umontpellier.fr with ESMTP; 29 Jun 2023 09:20:36 +0200
+Received: from zpstore4.infra.umontpellier.fr (zpstore4.infra.umontpellier.fr [172.23.41.134])
+	by mta-out2.infra.umontpellier.fr (Postfix) with ESMTP id B70E080018;
+	Thu, 29 Jun 2023 09:20:36 +0200 (CEST)
+From: Camille Guibal <camille.guibal@umontpellier.fr>
+To: "Aidin Niamir" <aidin.niamir@senckenberg.de>,
+	"Rainer M Krug" <Rainer@krugs.de>,
+	"IPBES TCA TSU" <ipbes-tsu-transformative-change@umontpellier.fr>
+Cc: "Renske Gudde" <renske.gudde@senckenberg.de>
+References: <PR3PR07MB7052350AABB54C3C468405799F24A@PR3PR07MB7052.eurprd07.prod.outlook.com> <016b43b6-7293-40fb-74e2-cf34702532ed@senckenberg.de>
+In-Reply-To: <016b43b6-7293-40fb-74e2-cf34702532ed@senckenberg.de>
+Subject: RE: [IPBES-tsu-transformative-change] Fwd: Chapter 1-5 literature review
+Thread-Topic: [IPBES-tsu-transformative-change] Fwd: Chapter 1-5 literature review
+Date: Thu, 29 Jun 2023 09:20:36 +0200 (CEST)
+Message-ID: <002201d9aa5a$3382d0d0$9a887270$@umontpellier.fr>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: Microsoft Outlook 16.0
+X-Mailer: Zimbra 8.8.15_GA_4545 (Zimbra-ZCO/9.0.0.1930 (10.0.19044  en-US) P2e34 T33d4 R115)
+Thread-Index: AQLMKCby2NqiQlOzV8Aj9oy02joA5wG/EJn8ra5ra1A=
+Content-language: en-us
+X-Originating-IP: [78.203.130.72]
+Envelope-To: <Rainer@krugs.de>
+X-Spam-Flag: NO
+UI-InboundReport: notjunk:1;M01:P0:mCAiEncKDEk=;EnJx2HXMHAnOy88HnSotaLHtpwR9
+ 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
+ y//x1IVPh910Ntg6UPD1OJ+FNO64UArMhsmg==
+
+Dear Aidin,
+
+Many thanks for forwarding this exchange to us and it's great news that 
+there is so much alignment between both chapters' approaches!
+
+Thanks again,
+Camille
+
+
+Camille GUIBAL (ELLE/SHE/HER)
+
+Programme Officer
+
+IPBES transformative change assessment TSU
+
+Support office for international outreach and attractiveness (SAIA)
+Department of structuring programs (DPS)
+
+Tél : +33 (0)4 34 43 34 46 <tel:+33 (0)4 34 43 34 46>  | Mob : +33 (0)6 82 
+71 74 38 <tel:+33 (0)6 82 71 74 38>
+
+camille.guibal@umontpellier.fr <mailto:camille.guibal@umontpellier.fr>
+
+
+ <http://www.umontpellier.fr/> 
+<data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAMAAAAoyzS7AAAAA1BMVEX///+nxBvIAAAADUlEQVR42gECAP3/AAAAAgABUyucMAAAAABJRU5ErkJggg==> 
+UNIVERSITÉ DE MONTPELLIER
+
+163 rue Auguste Broussonnet
+34090 Montpellier
+
+www.umontpellier.fr <http://www.umontpellier.fr>
+
+
+
+
+
+9.0.6 - 12/06/2023
+-----Original Message-----
+From: ipbes-tsu-transformative-change-request@umontpellier.fr 
+<ipbes-tsu-transformative-change-request@umontpellier.fr> On Behalf Of Aidin 
+Niamir
+Sent: Wednesday, June 28, 2023 6:48 PM
+To: Rainer M Krug <Rainer@krugs.de>; IPBES TCA TSU 
+<ipbes-tsu-transformative-change@umontpellier.fr>
+Cc: Renske Gudde <renske.gudde@senckenberg.de>
+Subject: [IPBES-tsu-transformative-change] Fwd: Chapter 1-5 literature 
+review
+
+Dear Rainer and Camille,
+
+I forward this email for your information.
+
+The request of Chapter 1 on literature review has not been finalized yet, 
+but apparently there are alignments with Chapter 5.
+
+Best
+Aidin
+
+
+-------- Forwarded Message --------
+Subject: 	RE: Chapter 1-5 literature review
+Date: 	Wed, 28 Jun 2023 09:29:27 +0000
+From: 	Victoria Reyes Garcia <Victoria.Reyes@uab.cat>
+To: 	Jerneja Penca <Jerneja.Penca@zrs-kp.si>, karinaben@gmail.com
+<karinaben@gmail.com>, rafael.icmbio@gmail.com <rafael.icmbio@gmail.com>, 
+martha.bonilla@inecol.mx <martha.bonilla@inecol.mx>
+CC: 	Sebastián Villasante <sebastian.villasante@usc.es>, Sebastian
+Villasante <s.villasante.arg@gmail.com>, Aidin Niamir 
+<aidin.niamir@senckenberg.de>, Gosnell, Hannah 
+<Hannah.Gosnell@oregonstate.edu>, Yves Zinngrebe <yves.zinngrebe@ufz.de>
+
+
+
+Dear Neja
+
+Thank you very much for this message.
+
+  From what I understand from it, our searches are completely aligned.
+
+We have prepared the attached document (which we already shared with Aidin). 
+Might be you can take a look and we can think together of a way to adjust 
+it, so it can be used by the two chapters.
+
+Take a look and let us know what you think
+
+viki
+
+*De:*Jerneja Penca <Jerneja.Penca@zrs-kp.si>
+*Enviat:* dimarts, 27 de juny de 2023 23:26 *Per a:* Victoria Reyes Garcia 
+<Victoria.Reyes@uab.cat>; karinaben@gmail.com; rafael.icmbio@gmail.com; 
+martha.bonilla@inecol.mx
+*A/c:* Sebastián Villasante <sebastian.villasante@usc.es>; Sebastian 
+Villasante <s.villasante.arg@gmail.com>; Aidin Niamir 
+<aidin.niamir@senckenberg.de>
+*Tema:* Chapter 1-5 literature review
+
+
+
+You don't often get email from jerneja.penca@zrs-kp.si 
+<mailto:jerneja.penca@zrs-kp.si>. Learn why this is important 
+<https://aka.ms/LearnAboutSenderIdentification>
+
+
+
+Dear Vicky, Martha, Rafael, Karina,
+
+I hope your work on TCA is progressing well despite the crazy timeline!
+
+Aidin has suggested that I contact you with regards to the work
+Sebastian and I are now pursuing in the context of Chapter 1 –
+justifying the “Why transformative change” section. Aidin mentioned that
+you seem to be reviewing a similar set of literature  in Chapter 5 so I
+am reaching out to align on the search terms and sources of data.
+
+We will be performing a search for the ‘calls for action’ (for
+transformative/fundamental/other change) in documents and academic
+literature from roughly 1990 until now.
+
+We will be constructing the criteria for:
+
+   * What makes the literature (policy and scientific) be relevant to
+     TRANSFORMATIVE CHANGE and BIODIVERSITY/NATURE?
+   * What makes this lterature be relevant to ACTION?
+
+It is on these aspects that we wish to align with your approach, in case
+you are reviewing literature, as well. It will make sense to have a
+joint approach in the Assessment.
+
+Are you doing anything similar and if so what? And what can you share so
+as to align on the approaches?
+
+If I missed the point completely, forgive me!! It is certainly not
+Aidin’s fault; bless his inter-chapter facilitation skills!
+
+Kind regards
+
+Neja
+
+
+*JERNEJA PENCA, PhD, višja znanstvena sodelavka***
+
+/Associate Professor, Senior Research Associate/
+
+Mediteranski inštitut za okoljske študije, Predstojnica
+
+/Mediterranean Institute for Environmental Studies, Head/
+
+/var/folders/hh/y6lvqmws3dxftfg0c_7l1_3c0000gn/T/com.microsoft.Outlook/Content.MSO/560246C2.tmp
+
+
+
+
+ZNANSTVENO-RAZISKOVALNO SREDIŠČE KOPER
+
+CENTRO DI RICERCHE SCIENTIFICHE CAPODISTRIA
+
+/SCIENCE AND RESEARCH CENTRE KOPER/
+
+Garibaldijeva 1, 6000 Koper, SLOVENIA
+
+T: +386 40 859776
+
+www.zrs-kp.si <http://www.zrs-kp.si/>
+
+
+-- 
+Dr Aidin Niamir
+Scientist- Data and Modelling Centre
+Senckenberg Biodiversity and Climate Research Institute
+Senckenberganlage 25, 60325 Frankfurt am Main, Germany
+aidin.niamir@senckenberg.de | +49 69 7542 1912
+
+Senckenberg Gesellschaft für Naturforschung (Rechtsfähiger Verein gemäß
+§ 22 BGB)
+Senckenberganlage 25, D-60325 Frankfurt am Main
+
+Member of the Leibniz Association
+www.senckenberg.de
