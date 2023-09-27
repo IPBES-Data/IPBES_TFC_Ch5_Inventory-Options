@@ -7,15 +7,6 @@ format:
         embed-resources: true
         code-fold: true
         code-summary: "Show the code"
-    docx:
-        toc: true
-        toc-depth: 2
-        number-sections: true
-        highlight-style: github
-    pdf:
-        toc: true
-        toc-depth: 2
-        number-sections: true
 ---
 
 # Setup
